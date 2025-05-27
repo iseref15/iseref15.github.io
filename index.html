@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vacation Hotel Recommender</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <h1 id="app-title">Find Your Perfect Hotel</h1>
+
+        <div id="question-area">
+            <h2 id="question-text"></h2>
+            <div id="options-area" class="options-area">
+                <!-- Buttons will be dynamically added here by JavaScript -->
+            </div>
+        </div>
+
+        <div id="recommendation-area" class="recommendation-area" style="display:none;">
+            <h2 id="recommendation-title">Your Recommendation:</h2>
+            <p id="recommendation-text"></p>
+            <button id="restart-button" class="action-button">Start Over</button>
+        </div>
+
+        <div id="error-area" class="error-area" style="display:none;">
+            <p id="error-text"></p>
+            <button id="error-restart-button" class="action-button">Try Again</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
