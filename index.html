@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TDEE Calculator</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS (for potential overrides or specific styles not in Tailwind) -->
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Arka plan görseli: Yeni yüklenen görsel kullanıldı */
+            background-image: url('pexels-ella-olsson-572949-1640774.jpg');
+            background-size: cover; /* Resmi tüm arka planı kaplayacak şekilde boyutlandır */
+            background-position: center; /* Resmi ortala */
+            background-repeat: no-repeat; /* Resmin tekrarlanmasını engelle */
+            background-attachment: fixed; /* Arka planın sabit kalmasını sağla (scroll ile hareket etmez) */
+            background-color: rgba(0, 0, 0, 0.3); /* Resmin üzerine hafif siyah bir katman ekle (içeriği okunabilir kılmak için) */
+            background-blend-mode: overlay; /* Arka plan rengi ile resmi harmanla */
+        }
+        /* Hide the default radio button, create a custom one */
+        input[type="radio"] {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            display: inline-block;
+            position: relative;
+            height: 1.25rem; /* 20px */
+            width: 1.25rem; /* 20px */
+            border-radius: 9999px; /* Full rounded for circle */
+            border: 2px solid #D1D5DB; /* light gray */
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            flex-shrink: 0; /* Ensure the custom radio button doesn't shrink in flex containers */
+        }
+
+        /* Inner circle when checked */
+        input[type="radio"]:checked::before {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            height: 0.625rem; /* 10px */
+            width: 0.625rem; /* 10px */
+            border-radius: 9999px; /* Full rounded */
+            background-color: #059669; /* Emerald-600 - changed from Indigo */
+        }
+
+        /* Border color when checked */
+        input[type="radio"]:checked {
+            border-color: #059669; /* Emerald-600 - changed from Indigo */
+        }
+
+        /* Focus styles */
+        input[type="radio"]:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.4); /* Emerald-400 with opacity - changed from Indigo */
+        }
+
+        /* Error message style */
+        .error-message {
+            display: none;
+            color: #EF4444; /* Red-500 */
+            font-size: 0.875rem; /* sm */
+            margin-top: 0.5rem;
+        }
+        .error-input {
+            border-color: #EF4444 !important; /* Red-500 */
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+    <div class="bg-white p-6 sm:p-8 md:p-10 rounded-xl shadow-lg w-full max-w-md mx-auto">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">TDEE Calculator</h1>
+
+        <!-- Input Section -->
+        <div class="space-y-4 mb-6">
+            <!-- Gender Input -->
+            <div>
+                <label class="block text-gray-700 text-sm font-medium mb-2">Gender: 🚻</label>
+                <div class="flex items-center space-x-6">
+                    <label class="flex items-center text-gray-700">
+                        <input type="radio" name="gender" value="female" id="genderFemale">
+                        <span class="ml-2">Woman ♀️</span>
+                    </label>
+                    <label class="flex items-center text-gray-700">
+                        <input type="radio" name="gender" value="male" id="genderMale">
+                        <span class="ml-2">Man ♂️</span>
+                    </label>
+                </div>
+                <p id="genderError" class="error-message">Please select your gender.</p>
+            </div>
+
+            <!-- Weight Input -->
+            <div>
+                <label for="weight" class="block text-gray-700 text-sm font-medium mb-2">Weight (kg): ⚖️</label>
+                <input type="number" id="weight" placeholder="e.g., 70" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition duration-200" min="1" step="0.1">
+                <p id="weightError" class="error-message">Please enter a valid weight.</p>
+            </div>
+
+            <!-- Height Input -->
+            <div>
+                <label for="height" class="block text-gray-700 text-sm font-medium mb-2">Height (cm): 📏</label>
+                <input type="number" id="height" placeholder="e.g., 175" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition duration-200" min="1" step="0.1">
+                <p id="heightError" class="error-message">Please enter a valid height.</p>
+            </div>
+
+            <!-- Age Input -->
+            <div>
+                <label for="age" class="block text-gray-700 text-sm font-medium mb-2">Age (years): 🎂</label>
+                <input type="number" id="age" placeholder="e.g., 30" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition duration-200" min="1" max="120">
+                <p id="ageError" class="error-message">Please enter a valid age.</p>
+            </div>
+
+            <!-- Activity Level Input -->
+            <div>
+                <label class="block text-gray-700 text-sm font-medium mb-2">Activity Level: 🏃‍♀️</label>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <label class="flex items-center text-gray-700 p-2 border border-gray-300 rounded-md bg-white hover:bg-gray-50 cursor-pointer transition duration-150 ease-in-out">
+                        <input type="radio" name="activityLevel" value="sedentary" id="activitySedentary">
+                        <span class="ml-2">Sedentary (Little/no exercise) 🛋️</span>
+                    </label>
+                    <label class="flex items-center text-gray-700 p-2 border border-gray-300 rounded-md bg-white hover:bg-gray-50 cursor-pointer transition duration-150 ease-in-out">
+                        <input type="radio" name="activityLevel" value="light" id="activityLight">
+                        <span class="ml-2">Light (1-3 days/week) 🚶</span>
+                    </label>
+                    <label class="flex items-center text-gray-700 p-2 border border-gray-300 rounded-md bg-white hover:bg-gray-50 cursor-pointer transition duration-150 ease-in-out">
+                        <input type="radio" name="activityLevel" value="moderate" id="activityModerate">
+                        <span class="ml-2">Moderate (3-5 days/week) 🏋️</span>
+                    </label>
+                    <label class="flex items-center text-gray-700 p-2 border border-gray-300 rounded-md bg-white hover:bg-gray-50 cursor-pointer transition duration-150 ease-in-out">
+                        <input type="radio" name="activityLevel" value="high" id="activityHigh">
+                        <span class="ml-2">High (6-7 days/week) 🏃‍♂️💨</span>
+                    </label>
+                </div>
+                <p id="activityError" class="error-message">Please select your activity level.</p>
+            </div>
+
+            <!-- Goal Input -->
+            <div>
+                <label class="block text-gray-700 text-sm font-medium mb-2">Your Goal: 🎯</label>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <label class="flex items-center text-gray-700 p-2 border border-gray-300 rounded-md bg-white hover:bg-gray-50 cursor-pointer transition duration-150 ease-in-out">
+                        <input type="radio" name="goal" value="lose" id="goalLose">
+                        <span class="ml-2">Lose Weight 📉</span>
+                    </label>
+                    <label class="flex items-center text-gray-700 p-2 border border-gray-300 rounded-md bg-white hover:bg-gray-50 cursor-pointer transition duration-150 ease-in-out">
+                        <input type="radio" name="goal" value="maintain" id="goalMaintain">
+                        <span class="ml-2">Maintain Weight ⚖️</span>
+                    </label>
+                    <label class="flex items-center text-gray-700 p-2 border border-gray-300 rounded-md bg-white hover:bg-gray-50 cursor-pointer transition duration-150 ease-in-out">
+                        <input type="radio" name="goal" value="gain" id="goalGain">
+                        <span class="ml-2">Gain Weight 📈</span>
+                    </label>
+                </div>
+                <p id="goalError" class="error-message">Please select your goal.</p>
+            </div>
+
+            <!-- Calculate Button -->
+            <button id="calculateAllBtn" class="w-full bg-emerald-600 text-white py-2 px-4 rounded-md hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition duration-200 shadow-md hover:shadow-lg text-xl">
+                Calculate ! 🔥
+            </button>
+        </div>
+
+        <!-- Result Display Section -->
+        <div class="space-y-4 mb-6">
+            <h2 class="text-xl font-semibold text-gray-800 text-center">Results 📈</h2>
+            <div class="bg-gray-50 p-4 rounded-md border border-gray-200">
+                <p class="text-gray-700 text-sm font-medium">Basal Metabolic Rate (BMR): <span id="bmrResult" class="font-bold text-emerald-700">--</span> kcal</p>
+            </div>
+
+            <div class="bg-gray-50 p-4 rounded-md border border-gray-200">
+                <p class="text-gray-700 text-sm font-medium">Total Daily Energy Expenditure (TDEE): <span id="tdeeResult" class="font-bold text-emerald-700">--</span> kcal</p>
+            </div>
+
+            <div class="bg-emerald-100 p-4 rounded-md border border-emerald-200">
+                <p class="text-emerald-800 text-sm font-medium">Your Estimated Daily Calorie Requirement: <span id="finalCalorieResult" class="font-bold text-emerald-900 text-lg">--</span> kcal</p>
+            </div>
+        </div>
+
+        <!-- Global Error Message Box -->
+        <div id="messageBox" class="hidden mt-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-md text-sm" role="alert">
+            <span id="messageBoxText"></span>
+            <button id="closeMessageBox" class="float-right text-red-700 hover:text-red-900 font-bold ml-2">X</button>
+        </div>
+
+        <!-- Informative Text Section -->
+        <div class="mt-8 p-6 bg-gray-50 rounded-xl shadow-md text-gray-700 leading-relaxed">
+            <h3 class="text-xl font-bold text-gray-800 mb-4">What Is Daily Calorie Requirement?</h3>
+            <p class="mb-4">
+                Your daily calorie requirement is the amount of energy your body needs to maintain vital functions and carry out daily activities. This energy comes from the food you eat and is measured in calories (kcal).
+            </p>
+            <p class="mb-4">
+                Everyone’s calorie needs are different. Factors such as gender, age, height, weight, and daily physical activity level all influence how many calories your body requires. Additionally, your personal goal—whether it’s to gain, lose, or maintain weight—also affects your daily calorie intake.
+            </p>
+            <p class="mb-2 font-semibold">🧠 Why is it important to know?</p>
+            <p class="mb-4">
+                Knowing your daily calorie needs is essential for building a healthy and balanced diet. Getting the right amount of calories:
+            </p>
+            <ul class="list-disc list-inside ml-4 mb-4 space-y-1">
+                <li>Helps you maintain steady energy levels,</li>
+                <li>Supports your metabolism,</li>
+                <li>Makes it easier to reach your goals in a healthy way.</li>
+            </ul>
+            <p class="mb-2 font-semibold">⚖️ Consuming too many calories can lead to weight gain over time,</p>
+            <p class="mb-4">
+                📉 while not getting enough calories may cause fatigue, muscle loss, and other health problems.
+            </p>
+            <p class="font-semibold">💡 With this calculator, you can easily find out how much energy your body needs each day and create a nutrition plan that aligns with your goals.</p>
+        </div>
+
+    </div>
+
+    <!-- Link to JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>
