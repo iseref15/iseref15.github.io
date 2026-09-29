@@ -1,1 +1,0 @@
-şeref bla bla
