@@ -1,0 +1,1 @@
+şeref işblir
