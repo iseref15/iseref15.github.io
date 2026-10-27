@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090d16">
+  <title>Give &amp; Grow — A Garden That Remembers</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to experience</a>
+
+  <header class="site-header">
+    <a class="wordmark" href="#top" aria-label="Give and Grow home">
+      <span class="wordmark-mark" aria-hidden="true">✳</span>
+      <span>FIELD NOTES <span class="wordmark-divider">/</span> RECIPROCITY</span>
+    </a>
+    <span class="edition-label">AN INTERACTIVE STUDY · 01</span>
+  </header>
+
+  <main id="main-content">
+    <section class="intro" id="top" aria-labelledby="page-title">
+      <p class="eyebrow">A SMALL EXPERIMENT IN RESPONSE</p>
+      <h1 id="page-title">Give <span class="title-amp">&amp;</span> Grow</h1>
+      <p class="intro-copy">Every gesture leaves a trace. What changes when a garden remembers?</p>
+    </section>
+
+    <section class="experience-layout" aria-label="Interactive garden experience">
+      <div class="garden-column">
+        <div class="garden-frame">
+          <div class="frame-topline">
+            <span>OBSERVATION WINDOW</span>
+            <span class="live-mark"><span aria-hidden="true"></span> LIVING SYSTEM</span>
+          </div>
+
+          <div class="garden-scene" id="gardenScene" data-stage="0" data-last-action="none" aria-label="Interactive night garden">
+            <!-- Dekoratif gökyüzü katmanı; anlamlı etkileşimler gerçek düğmelerdir. -->
+            <div class="starfield" aria-hidden="true">
+              <i class="star star-1"></i><i class="star star-2"></i><i class="star star-3"></i>
+              <i class="star star-4"></i><i class="star star-5"></i><i class="star star-6"></i>
+              <i class="star star-7"></i><i class="star star-8"></i><i class="star star-9"></i>
+              <i class="star star-10"></i><i class="star star-11"></i><i class="star star-12"></i>
+            </div>
+            <div class="moon" aria-hidden="true"></div>
+            <div class="light-beam" aria-hidden="true"></div>
+            <div class="mist mist-back" aria-hidden="true"></div>
+            <div class="mist mist-front" aria-hidden="true"></div>
+            <div class="distant-hills" aria-hidden="true"></div>
+            <div class="soil-glow" aria-hidden="true"></div>
+            <div class="ground" aria-hidden="true"></div>
+            <div class="ground-line ground-line-one" aria-hidden="true"></div>
+            <div class="ground-line ground-line-two" aria-hidden="true"></div>
+            <div class="rest-ripple" aria-hidden="true"></div>
+
+            <!-- Bitki, dış görsel dosyası kullanmadan SVG ile çizildi. -->
+            <svg class="plant-art" viewBox="0 0 360 360" role="img" aria-labelledby="plant-title plant-desc">
+              <title id="plant-title">The garden's plant</title>
+              <desc id="plant-desc">A seed, sprout, leaves, bud, or open flower that changes after each gesture.</desc>
+              <defs>
+                <linearGradient id="stemGradient" x1="0" y1="1" x2="0.7" y2="0">
+                  <stop offset="0" stop-color="#607b73" />
+                  <stop offset="1" stop-color="#b7e8c8" />
+                </linearGradient>
+                <radialGradient id="seedGradient" cx="35%" cy="25%" r="80%">
+                  <stop offset="0" stop-color="#d3c9a5" />
+                  <stop offset="1" stop-color="#637d72" />
+                </radialGradient>
+                <radialGradient id="budGradient" cx="35%" cy="25%" r="75%">
+                  <stop offset="0" stop-color="#f7e8c5" />
+                  <stop offset="0.55" stop-color="#d8bce4" />
+                  <stop offset="1" stop-color="#8b91c5" />
+                </radialGradient>
+                <linearGradient id="leafGradient" x1="0" y1="1" x2="1" y2="0">
+                  <stop offset="0" stop-color="#456e62" />
+                  <stop offset="1" stop-color="#b5dfba" />
+                </linearGradient>
+              </defs>
+              <ellipse class="plant-shadow" cx="181" cy="291" rx="65" ry="12" />
+              <g class="root-lines" fill="none" stroke="#779e89" stroke-linecap="round" stroke-width="2">
+                <path d="M180 267 Q166 282 154 288" />
+                <path d="M181 269 Q188 282 204 288" />
+                <path d="M179 272 Q176 283 176 291" />
+              </g>
+              <g class="seed-shape">
+                <path d="M180 257 C159 249 160 227 180 216 C201 228 199 249 180 257Z" fill="url(#seedGradient)" />
+                <path d="M180 250 Q181 235 190 228" fill="none" stroke="#e2d7b2" stroke-linecap="round" stroke-width="2" opacity=".75" />
+              </g>
+              <g class="stem-group" fill="none" stroke="url(#stemGradient)" stroke-linecap="round" stroke-linejoin="round">
+                <path class="stem" d="M180 270 C176 238 190 208 183 176 C180 159 181 142 183 122" stroke-width="6" />
+                <path class="stem-vein" d="M182 229 Q166 214 157 199 M183 191 Q202 176 210 162" stroke-width="2" opacity=".8" />
+              </g>
+              <g class="leaf-group leaf-left">
+                <path d="M179 223 C151 227 131 213 126 188 C151 188 173 200 179 223Z" fill="url(#leafGradient)" />
+                <path d="M133 193 Q155 203 174 219" fill="none" stroke="#d0f1d0" stroke-width="1.7" opacity=".8" />
+              </g>
+              <g class="leaf-group leaf-right">
+                <path d="M184 190 C205 191 226 178 231 155 C208 157 190 170 184 190Z" fill="url(#leafGradient)" />
+                <path d="M225 161 Q204 173 188 187" fill="none" stroke="#d0f1d0" stroke-width="1.7" opacity=".8" />
+              </g>
+              <g class="bud-group">
+                <path d="M183 132 Q168 122 169 107 Q180 111 183 119 Q189 105 201 104 Q201 123 183 132Z" fill="#90bd9c" />
+                <ellipse cx="184" cy="101" rx="14" ry="21" fill="url(#budGradient)" />
+                <path d="M183 116 Q182 103 187 88" fill="none" stroke="#fff0d8" stroke-width="1.5" opacity=".8" />
+              </g>
+              <g class="flower-petals">
+                <ellipse cx="183" cy="84" rx="12" ry="25" transform="rotate(0 183 105)" />
+                <ellipse cx="183" cy="84" rx="12" ry="25" transform="rotate(60 183 105)" />
+                <ellipse cx="183" cy="84" rx="12" ry="25" transform="rotate(120 183 105)" />
+                <ellipse cx="183" cy="84" rx="12" ry="25" transform="rotate(180 183 105)" />
+                <ellipse cx="183" cy="84" rx="12" ry="25" transform="rotate(240 183 105)" />
+                <ellipse cx="183" cy="84" rx="12" ry="25" transform="rotate(300 183 105)" />
+                <circle cx="183" cy="105" r="10" class="flower-center" />
+                <circle cx="180" cy="102" r="2" class="flower-seed" />
+                <circle cx="187" cy="107" r="1.8" class="flower-seed" />
+              </g>
+            </svg>
+
+            <!-- Bahçe bölgeleri tıklanabilir düğmelerdir; klavyeyle de kullanılabilir. -->
+            <button class="hotspot hotspot-rest" type="button" data-action="rest" aria-label="Give the garden a moment of rest">
+              <span class="hotspot-symbol" aria-hidden="true">☾</span>
+              <span class="hotspot-label">REST</span>
+            </button>
+            <button class="hotspot hotspot-light" type="button" data-action="light" aria-label="Turn the garden toward the light">
+              <span class="hotspot-symbol" aria-hidden="true">✳</span>
+              <span class="hotspot-label">LIGHT</span>
+            </button>
+            <button class="hotspot hotspot-water" type="button" data-action="water" aria-label="Water the garden soil">
+              <span class="hotspot-symbol" aria-hidden="true">滴</span>
+              <span class="hotspot-label">WATER</span>
+            </button>
+            <div class="scene-coordinate" aria-hidden="true">NIGHT STUDY / 001</div>
+          </div>
+
+          <div class="garden-caption">
+            <div>
+              <p class="caption-kicker">CURRENT FORM</p>
+              <p class="current-state" id="stateTitle">A seed, waiting</p>
+            </div>
+            <span class="stage-tag" id="stageLabel">SEED</span>
+          </div>
+        </div>
+
+        <section class="memory-panel" aria-labelledby="memory-title">
+          <div class="section-heading-row">
+            <div>
+              <p class="eyebrow">A TRACE REMAINS</p>
+              <h2 id="memory-title">Recent gestures</h2>
+            </div>
+            <span class="memory-note">LAST THREE</span>
+          </div>
+          <div class="history-trail" id="historyTrail" aria-label="No gestures yet">
+            <div class="history-slot is-empty"><span class="history-symbol" aria-hidden="true">·</span><span class="history-word">EMPTY</span></div>
+            <div class="history-slot is-empty"><span class="history-symbol" aria-hidden="true">·</span><span class="history-word">EMPTY</span></div>
+            <div class="history-slot is-empty"><span class="history-symbol" aria-hidden="true">·</span><span class="history-word">EMPTY</span></div>
+          </div>
+          <p class="memory-caption">The garden's visible form changes as you interact. Try different gestures, and notice what remains.</p>
+        </section>
+      </div>
+
+      <aside class="control-panel" aria-labelledby="gesture-title">
+        <div class="panel-topline">
+          <span class="eyebrow">YOUR SIDE OF THE EXCHANGE</span>
+          <span class="tiny-orbit" aria-hidden="true">◎</span>
+        </div>
+        <h2 id="gesture-title">Offer something<br>to the garden.</h2>
+        <p class="panel-description">Touch one of the places in the garden, or use these controls instead.</p>
+
+        <div class="action-list" aria-label="Garden actions">
+          <button class="action-button" type="button" data-action="water">
+            <span class="action-icon action-icon-water" aria-hidden="true">滴</span>
+            <span class="action-text"><strong>Water</strong><small>Give the soil a drink</small></span>
+            <span class="action-arrow" aria-hidden="true">↗</span>
+          </button>
+          <button class="action-button" type="button" data-action="rest">
+            <span class="action-icon action-icon-rest" aria-hidden="true">☾</span>
+            <span class="action-text"><strong>Rest</strong><small>Leave a moment of quiet</small></span>
+            <span class="action-arrow" aria-hidden="true">↗</span>
+          </button>
+          <button class="action-button" type="button" data-action="light">
+            <span class="action-icon action-icon-light" aria-hidden="true">✳</span>
+            <span class="action-text"><strong>Light</strong><small>Turn toward the glow</small></span>
+            <span class="action-arrow" aria-hidden="true">↗</span>
+          </button>
+        </div>
+
+        <div class="response-card" aria-live="polite" aria-atomic="true">
+          <span class="response-dot" aria-hidden="true"></span>
+          <div>
+            <p class="response-label">THE GARDEN RESPONDS</p>
+            <p id="feedbackText">The garden is still. Make your first gesture.</p>
+          </div>
+        </div>
+
+        <div class="control-row">
+          <button class="utility-button" type="button" id="pauseButton" aria-pressed="false">
+            <span id="pauseIcon" aria-hidden="true">Ⅱ</span> <span id="pauseLabel">Pause</span>
+          </button>
+          <button class="utility-button reset-button" type="button" id="resetButton">
+            <span aria-hidden="true">↺</span> Reset
+          </button>
+        </div>
+        <p class="control-hint" id="controlHint">The garden will open in its own time. You can reset at any moment.</p>
+      </aside>
+    </section>
+
+    <section class="closing-note" aria-label="About the experience">
+      <span class="closing-star" aria-hidden="true">✳</span>
+      <p><strong>Every action expects a response.</strong><br>Design the dialogue, not the message.</p>
+      <span class="closing-index">G&amp;G / FIELD 01</span>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>GIVE &amp; GROW</span>
+    <span>A SMALL EXPERIMENT IN RECIPROCITY</span>
+  </footer>
+</body>
+</html>
