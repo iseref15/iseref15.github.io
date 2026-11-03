@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8fafb">
+  <meta name="description" content="Melting Point: a temporary sculpture shaped by time and memory.">
+  <title>Melting Point — A study in time</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="site-header">
+      <a class="wordmark" href="#main" aria-label="Melting Point, skip to the experience">
+        <span class="wordmark-symbol" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span>MELTING<span class="wordmark-dot">.</span>POINT</span>
+      </a>
+      <span class="header-caption">AN INTERACTIVE STUDY OF TEMPORALITY <span aria-hidden="true">/</span> 001</span>
+    </header>
+
+    <main id="main">
+      <section class="introduction" aria-labelledby="intro-title">
+        <div class="intro-copy">
+          <p class="eyebrow"><span class="eyebrow-rule" aria-hidden="true"></span> TIME / MEMORY / CHANGE</p>
+          <h1 id="intro-title">Nothing stays<br><em>the same.</em></h1>
+          <p class="intro-description">Build a temporary sculpture from ice. Every piece begins to melt the moment you place it. What remains of your earlier choices?</p>
+        </div>
+        <div class="intro-aside" aria-label="How the experience works">
+          <span class="aside-number">01 — THE IDEA</span>
+          <p>Five positions.<br>One moment at a time.<br><span class="aside-accent">A past that may remain.</span></p>
+          <div class="aside-bottom"><span class="aside-small">EACH PIECE LASTS</span><strong id="intro-duration">15 SECONDS</strong></div>
+        </div>
+      </section>
+
+      <section class="installation-section" aria-labelledby="installation-title">
+        <div class="section-header">
+          <div>
+            <p class="section-kicker">THE INSTALLATION / 01</p>
+            <h2 id="installation-title">A sculpture shaped by time</h2>
+          </div>
+          <p class="section-subtitle">Select a position to add ice. Watch each piece grow smaller as its own time passes.</p>
+        </div>
+
+        <div class="workspace">
+          <section class="gallery-panel" aria-labelledby="gallery-title">
+            <div class="gallery-topline">
+              <h3 id="gallery-title">THE GALLERY</h3>
+              <span class="gallery-tag">LIVE INSTALLATION <span class="live-dot" aria-hidden="true"></span></span>
+            </div>
+
+            <div class="stage" id="stage" aria-label="Sculpture with five fixed ice positions; live position descriptions appear below">
+              <div class="stage-label stage-label-left" aria-hidden="true">STUDY NO. 01</div>
+              <div class="stage-label stage-label-right" aria-hidden="true">ICE / TIME</div>
+              <div class="gallery-wall-line" aria-hidden="true"></div>
+              <div id="art-positions" class="art-positions" aria-hidden="true"></div>
+              <div class="sculpture-plinth" aria-hidden="true"><span class="plinth-front"></span></div>
+              <div class="stage-footer" aria-hidden="true">AN EPHEMERAL OBJECT <span>—</span> 2026</div>
+            </div>
+
+            <div class="gallery-info">
+              <div class="time-readout">
+                <span class="metadata-label">EXPERIENCE TIME</span>
+                <output id="experience-clock" class="clock-display" aria-live="off">00:00.0</output>
+              </div>
+              <div class="state-readout">
+                <span class="metadata-label">CURRENT STATE</span>
+                <span id="run-state" class="state-value"><span class="state-symbol" aria-hidden="true">▶</span> Running</span>
+              </div>
+              <div class="gallery-legend">
+                <span class="metadata-label">MEMORY</span>
+                <span id="memory-legend" class="legend-value">Past traces shown</span>
+              </div>
+            </div>
+          </section>
+
+          <aside class="control-panel" aria-label="Installation controls">
+            <fieldset class="mode-fieldset">
+              <legend><span class="panel-index">01</span> MEMORY MODE</legend>
+              <p class="panel-description">Change what the sculpture reveals about its past.</p>
+              <div class="mode-options">
+                <label class="mode-choice">
+                  <input type="radio" name="memory-mode" value="visible" checked>
+                  <span class="mode-choice-text"><strong>Visible Past</strong><small>Melted pieces leave an outline</small></span>
+                </label>
+                <label class="mode-choice">
+                  <input type="radio" name="memory-mode" value="hidden">
+                  <span class="mode-choice-text"><strong>Hidden Past</strong><small>Melted traces are not shown</small></span>
+                </label>
+              </div>
+              <p class="mode-caveat">Switching mode starts a new, empty attempt.</p>
+            </fieldset>
+
+            <section class="placement-section" aria-labelledby="placement-title">
+              <div class="placement-heading"><h3 id="placement-title"><span class="panel-index">02</span> PLACE ICE</h3><span class="placement-tag">FIVE POSITIONS</span></div>
+              <p class="panel-description">Select a position. You can add a new piece there after the previous one has melted.</p>
+              <div id="slot-buttons" class="slot-buttons" role="group" aria-label="Place ice in a position"></div>
+            </section>
+
+            <section class="time-section" aria-labelledby="time-controls-title">
+              <h3 id="time-controls-title"><span class="panel-index">03</span> CONTROL TIME</h3>
+              <p class="panel-description">Pause freezes melting. While paused, you cannot add pieces.</p>
+              <div class="time-buttons">
+                <button type="button" id="pause-button" class="button button-primary"><span class="button-icon" aria-hidden="true">Ⅱ</span> <span id="pause-label">Pause</span></button>
+                <button type="button" id="reset-button" class="button button-outline"><span class="button-icon" aria-hidden="true">↺</span> Reset</button>
+              </div>
+            </section>
+
+            <div class="activity-box" aria-labelledby="activity-title">
+              <span id="activity-title" class="metadata-label">LATEST ACTION</span>
+              <p id="activity-message">Choose any position to begin.</p>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="status-section" aria-labelledby="position-status-title">
+        <div class="status-intro">
+          <div>
+            <p class="section-kicker">CURRENT MOMENT / 02</p>
+            <h2 id="position-status-title">Five positions, five timelines.</h2>
+          </div>
+          <p>Each position remembers only its most recently melted piece. Previous traces are described only in Visible Past mode.</p>
+        </div>
+        <ol id="slot-statuses" class="slot-statuses" aria-label="Current state of the five positions"></ol>
+      </section>
+
+      <section class="reflection-section" aria-labelledby="reflection-title">
+        <div class="reflection-ornament" aria-hidden="true">↝</div>
+        <div>
+          <p class="section-kicker">A QUESTION TO TAKE WITH YOU</p>
+          <h2 id="reflection-title">How does what came before change what you make now?</h2>
+          <p>Try the same composition in both memory modes. Notice when you wait, when you place another piece, and whether a remaining trace changes your next choice.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer"><span>MELTING POINT / TEMPORALITY</span><span>TIME IS PART OF THE MATERIAL</span></footer>
+  </div>
+
+  <!-- Erişilebilir durum değişiklikleri yalnızca olaylarda duyurulur; her animasyon karesinde duyuru yapılmaz. -->
+  <div id="screen-reader-announcement" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true"></div>
+</body>
+</html>
