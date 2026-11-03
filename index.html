@@ -1,223 +1,128 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TDEE Calculator</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts - Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Custom CSS (for potential overrides or specific styles not in Tailwind) -->
-    <link rel="stylesheet" href="style.css">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            /* Background image: Using the newly uploaded image */
-            background-image: url('pexels-ella-olsson-572949-1640774.jpg');
-            background-size: cover; /* Scale the image to cover the entire background */
-            background-position: center; /* Center the image */
-            background-repeat: no-repeat; /* Prevent the image from repeating */
-            background-attachment: fixed; /* Keep the background fixed (does not move with scroll) */
-            background-color: rgba(0, 0, 0, 0.3); /* Add a slight black overlay to the image (to make content readable) */
-            background-blend-mode: overlay; /* Blend the background color with the image */
-        }
-        /* Hide the default radio button, create a custom one */
-        input[type="radio"] {
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            display: inline-block;
-            position: relative;
-            height: 1.25rem; /* 20px */
-            width: 1.25rem; /* 20px */
-            border-radius: 9999px; /* Full rounded for circle */
-            border: 2px solid #D1D5DB; /* light gray */
-            cursor: pointer;
-            transition: all 0.2s ease-in-out;
-            flex-shrink: 0; /* Ensure the custom radio button doesn't shrink in flex containers */
-        }
-
-        /* Inner circle when checked */
-        input[type="radio"]:checked::before {
-            content: '';
-            display: block;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            height: 0.625rem; /* 10px */
-            width: 0.625rem; /* 10px */
-            border-radius: 9999px; /* Full rounded */
-            background-color: #059669; /* Emerald-600 - changed from Indigo */
-        }
-
-        /* Border color when checked */
-        input[type="radio"]:checked {
-            border-color: #059669; /* Emerald-600 - changed from Indigo */
-        }
-
-        /* Focus styles */
-        input[type="radio"]:focus {
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.4); /* Emerald-400 with opacity - changed from Indigo */
-        }
-
-        /* Error message style */
-        .error-message {
-            display: none;
-            color: #EF4444; /* Red-500 */
-            font-size: 0.875rem; /* sm */
-            margin-top: 0.5rem;
-        }
-        .error-input {
-            border-color: #EF4444 !important; /* Red-500 */
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="Perfect Balance: an interactive experiment about feedback and hidden momentum.">
+  <title>Perfect Balance — Feedback Experiment</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
-<body class="min-h-screen flex items-center justify-center p-4">
-    <div class="bg-white p-6 sm:p-8 md:p-10 rounded-xl shadow-lg w-full max-w-md mx-auto">
-        <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">TDEE Calculator</h1>
+<body>
+  <div class="page-shell">
+    <header class="page-header">
+      <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span> INTERACTIVE EXPERIMENT / FEEDBACK</p>
+      <h1>Perfect <span>Balance.</span></h1>
+      <p class="subtitle">Keep the ball on the platform. Use feedback to decide when to correct its movement.</p>
+    </header>
 
-        <!-- Input Section -->
-        <div class="space-y-4 mb-6">
-            <!-- Gender Input -->
-            <div>
-                <label class="block text-gray-700 text-sm font-medium mb-2">Gender: 🚻</label>
-                <div class="flex items-center space-x-6">
-                    <label class="flex items-center text-gray-700">
-                        <input type="radio" name="gender" value="female" id="genderFemale">
-                        <span class="ml-2">Woman ♀️</span>
-                    </label>
-                    <label class="flex items-center text-gray-700">
-                        <input type="radio" name="gender" value="male" id="genderMale">
-                        <span class="ml-2">Man ♂️</span>
-                    </label>
-                </div>
-                <p id="genderError" class="error-message">Please select your gender.</p>
-            </div>
-
-            <!-- Weight Input -->
-            <div>
-                <label for="weight" class="block text-gray-700 text-sm font-medium mb-2">Weight (kg): ⚖️</label>
-                <input type="number" id="weight" placeholder="e.g., 70" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition duration-200" min="1" step="0.1">
-                <p id="weightError" class="error-message">Please enter a valid weight.</p>
-            </div>
-
-            <!-- Height Input -->
-            <div>
-                <label for="height" class="block text-gray-700 text-sm font-medium mb-2">Height (cm): 📏</label>
-                <input type="number" id="height" placeholder="e.g., 175" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition duration-200" min="1" step="0.1">
-                <p id="heightError" class="error-message">Please enter a valid height.</p>
-            </div>
-
-            <!-- Age Input -->
-            <div>
-                <label for="age" class="block text-gray-700 text-sm font-medium mb-2">Age (years): 🎂</label>
-                <input type="number" id="age" placeholder="e.g., 30" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition duration-200" min="1" max="120">
-                <p id="ageError" class="error-message">Please enter a valid age.</p>
-            </div>
-
-            <!-- Activity Level Input -->
-            <div>
-                <label class="block text-gray-700 text-sm font-medium mb-2">Activity Level: 🏃‍♀️</label>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <label class="flex items-center text-gray-700 p-2 border border-gray-300 rounded-md bg-white hover:bg-gray-50 cursor-pointer transition duration-150 ease-in-out">
-                        <input type="radio" name="activityLevel" value="sedentary" id="activitySedentary">
-                        <span class="ml-2">Sedentary (Little/no exercise) 🛋️</span>
-                    </label>
-                    <label class="flex items-center text-gray-700 p-2 border border-gray-300 rounded-md bg-white hover:bg-gray-50 cursor-pointer transition duration-150 ease-in-out">
-                        <input type="radio" name="activityLevel" value="light" id="activityLight">
-                        <span class="ml-2">Light (1-3 days/week) 🚶</span>
-                    </label>
-                    <label class="flex items-center text-gray-700 p-2 border border-gray-300 rounded-md bg-white hover:bg-gray-50 cursor-pointer transition duration-150 ease-in-out">
-                        <input type="radio" name="activityLevel" value="moderate" id="activityModerate">
-                        <span class="ml-2">Moderate (3-5 days/week) 🏋️</span>
-                    </label>
-                    <label class="flex items-center text-gray-700 p-2 border border-gray-300 rounded-md bg-white hover:bg-gray-50 cursor-pointer transition duration-150 ease-in-out">
-                        <input type="radio" name="activityLevel" value="high" id="activityHigh">
-                        <span class="ml-2">High (6-7 days/week) 🏃‍♂️💨</span>
-                    </label>
-                </div>
-                <p id="activityError" class="error-message">Please select your activity level.</p>
-            </div>
-
-            <!-- Goal Input -->
-            <div>
-                <label class="block text-gray-700 text-sm font-medium mb-2">Your Goal: 🎯</label>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                    <label class="flex items-center text-gray-700 p-2 border border-gray-300 rounded-md bg-white hover:bg-gray-50 cursor-pointer transition duration-150 ease-in-out">
-                        <input type="radio" name="goal" value="lose" id="goalLose">
-                        <span class="ml-2">Lose Weight 📉</span>
-                    </label>
-                    <label class="flex items-center text-gray-700 p-2 border border-gray-300 rounded-md bg-white hover:bg-gray-50 cursor-pointer transition duration-150 ease-in-out">
-                        <input type="radio" name="goal" value="maintain" id="goalMaintain">
-                        <span class="ml-2">Maintain Weight ⚖️</span>
-                    </label>
-                    <label class="flex items-center text-gray-700 p-2 border border-gray-300 rounded-md bg-white hover:bg-gray-50 cursor-pointer transition duration-150 ease-in-out">
-                        <input type="radio" name="goal" value="gain" id="goalGain">
-                        <span class="ml-2">Gain Weight 📈</span>
-                    </label>
-                </div>
-                <p id="goalError" class="error-message">Please select your goal.</p>
-            </div>
-
-            <!-- Calculate Button -->
-            <button id="calculateAllBtn" class="w-full bg-emerald-600 text-white py-2 px-4 rounded-md hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition duration-200 shadow-md hover:shadow-lg text-xl">
-                Calculate ! 🔥
-            </button>
+    <main class="main-grid">
+      <section class="experiment panel" aria-labelledby="experiment-title">
+        <div class="section-header">
+          <div>
+            <p class="micro-heading">THE EXPERIMENT</p>
+            <h2 id="experiment-title">Find your balance</h2>
+          </div>
+          <span class="status-pill" id="attempt-status">In progress</span>
         </div>
 
-        <!-- Result Display Section -->
-        <div class="space-y-4 mb-6">
-            <h2 class="text-xl font-semibold text-gray-800 text-center">Results 📈</h2>
-            <div class="bg-gray-50 p-4 rounded-md border border-gray-200">
-                <p class="text-gray-700 text-sm font-medium">Basal Metabolic Rate (BMR): <span id="bmrResult" class="font-bold text-emerald-700">--</span> kcal</p>
-            </div>
+        <fieldset class="mode-switch" id="mode-switch">
+          <legend>Feedback mode</legend>
+          <div class="mode-options">
+            <label class="mode-option">
+              <input type="radio" name="feedback-mode" value="full" checked>
+              <span class="mode-option-content">
+                <strong>Full feedback</strong>
+                <small>Position + momentum</small>
+              </span>
+            </label>
+            <label class="mode-option">
+              <input type="radio" name="feedback-mode" value="limited">
+              <span class="mode-option-content">
+                <strong>Limited feedback</strong>
+                <small>Position, no momentum display</small>
+              </span>
+            </label>
+          </div>
+          <p class="field-note">Changing modes resets the attempt. The rules stay the same.</p>
+        </fieldset>
 
-            <div class="bg-gray-50 p-4 rounded-md border border-gray-200">
-                <p class="text-gray-700 text-sm font-medium">Total Daily Energy Expenditure (TDEE): <span id="tdeeResult" class="font-bold text-emerald-700">--</span> kcal</p>
-            </div>
-
-            <div class="bg-emerald-100 p-4 rounded-md border border-emerald-200">
-                <p class="text-emerald-800 text-sm font-medium">Your Estimated Daily Calorie Requirement: <span id="finalCalorieResult" class="font-bold text-emerald-900 text-lg">--</span> kcal</p>
-            </div>
+        <div class="stage" id="stage" aria-hidden="true">
+          <div class="stage-grid"></div>
+          <div class="center-line"></div>
+          <span class="stage-label left-label">LEFT EDGE</span>
+          <span class="stage-label right-label">RIGHT EDGE</span>
+          <div class="fulcrum"></div>
+          <div class="platform" id="platform"></div>
+          <div class="ball" id="ball"><span class="ball-shine"></span></div>
         </div>
 
-        <!-- Global Error Message Box -->
-        <div id="messageBox" class="hidden mt-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-md text-sm" role="alert">
-            <span id="messageBoxText"></span>
-            <button id="closeMessageBox" class="float-right text-red-700 hover:text-red-900 font-bold ml-2">X</button>
+        <div class="readouts" aria-label="Current information">
+          <div class="readout">
+            <span class="readout-label">BALL POSITION</span>
+            <strong id="position-text">Near center</strong>
+          </div>
+          <div class="readout">
+            <span class="readout-label">PLATFORM TILT</span>
+            <strong id="tilt-text">Level · 0°</strong>
+          </div>
+          <div class="readout momentum-readout" id="momentum-readout">
+            <span class="readout-label">MOMENTUM <span class="full-tag">FULL ONLY</span></span>
+            <div class="momentum-value">
+              <span class="momentum-arrow" id="momentum-arrow" aria-hidden="true">→</span>
+              <strong id="momentum-text">Right · 35 units/s</strong>
+            </div>
+          </div>
         </div>
 
-        <!-- Informative Text Section -->
-        <div class="mt-8 p-6 bg-gray-50 rounded-xl shadow-md text-gray-700 leading-relaxed">
-            <h3 class="text-xl font-bold text-gray-800 mb-4">What Is Daily Calorie Requirement?</h3>
-            <p class="mb-4">
-                Your daily calorie requirement is the amount of energy your body needs to maintain vital functions and carry out daily activities. This energy comes from the food you eat and is measured in calories (kcal).
-            </p>
-            <p class="mb-4">
-                Everyone’s calorie needs are different. Factors such as gender, age, height, weight, and daily physical activity level all influence how many calories your body requires. Additionally, your personal goal—whether it’s to gain, lose, or maintain weight—also affects your daily calorie intake.
-            </p>
-            <p class="mb-2 font-semibold">🧠 Why is it important to know?</p>
-            <p class="mb-4">
-                Knowing your daily calorie needs is essential for building a healthy and balanced diet. Getting the right amount of calories:
-            </p>
-            <ul class="list-disc list-inside ml-4 mb-4 space-y-1">
-                <li>Helps you maintain steady energy levels,</li>
-                <li>Supports your metabolism,</li>
-                <li>Makes it easier to reach your goals in a healthy way.</li>
-            </ul>
-            <p class="mb-2 font-semibold">⚖️ Consuming too many calories can lead to weight gain over time,</p>
-            <p class="mb-4">
-                📉 while not getting enough calories may cause fatigue, muscle loss, and other health problems.
-            </p>
-            <p class="font-semibold">💡 With this calculator, you can easily find out how much energy your body needs each day and create a nutrition plan that aligns with your goals.</p>
+        <div class="control-section">
+          <p class="micro-heading">CONTROLS</p>
+          <div class="control-buttons" role="group" aria-label="Platform controls">
+            <button type="button" id="tilt-left" class="action-button"><span class="button-symbol" aria-hidden="true">←</span> Tilt Left</button>
+            <button type="button" id="level" class="action-button"><span class="button-symbol" aria-hidden="true">−</span> Level</button>
+            <button type="button" id="tilt-right" class="action-button"><span class="button-symbol" aria-hidden="true">→</span> Tilt Right</button>
+          </div>
+          <div class="controls-footer">
+            <p id="acknowledgement" class="acknowledgement">Ready for input.</p>
+            <button type="button" id="reset" class="reset-button"><span aria-hidden="true">↻</span> Reset attempt</button>
+          </div>
         </div>
 
-    </div>
+        <div class="outcome" id="outcome" hidden role="alert">
+          <strong id="outcome-title">The ball fell off the platform.</strong>
+          <p>That attempt has ended. Press Reset attempt to try again.</p>
+        </div>
 
-    <!-- Link to JavaScript file -->
-    <script src="script.js"></script>
+        <p class="live-message" id="live-message" role="status" aria-live="polite" aria-atomic="true">Attempt started. The ball is near center.</p>
+      </section>
+
+      <aside class="sidebar" aria-label="Experiment guide">
+        <section class="panel guide-panel">
+          <p class="micro-heading">YOUR TASK</p>
+          <h2>Observe. Act. Correct.</h2>
+          <p>Try to prevent the ball from reaching either edge. Each button press changes the platform tilt by <strong>4°</strong>. The ball keeps moving even after the platform returns to level.</p>
+          <ol class="guide-steps">
+            <li>Watch the ball and the available feedback.</li>
+            <li>Press <strong>Tilt Left</strong> or <strong>Tilt Right</strong> to change the slope.</li>
+            <li>Use <strong>Level</strong> to make the platform flat.</li>
+            <li>If the ball falls, select <strong>Reset attempt</strong>.</li>
+          </ol>
+          <div class="tip"><span class="tip-symbol" aria-hidden="true">i</span><p>The ball starts with the same small rightward motion on every attempt. Tilt does not instantly cancel existing momentum.</p></div>
+        </section>
+        <section class="panel compare-panel">
+          <p class="micro-heading">TRY A COMPARISON</p>
+          <h2>What changes with feedback?</h2>
+          <p>Ask a willing classmate to try both modes. Each attempt starts from the same position and speed.</p>
+          <p class="compare-question">What helped you decide when to act?</p>
+          <p class="compare-question">Did you hesitate or repeat a button press?</p>
+          <p class="compare-question">Could you tell which way the ball was moving?</p>
+          <p class="privacy-note">No scores or observations are recorded by this page.</p>
+        </section>
+        <p class="access-note">All buttons work with a keyboard, pointer or touch. The same position and tilt descriptions are available in both feedback modes; the extra momentum readout is present only in Full feedback.</p>
+      </aside>
+    </main>
+    <footer class="page-footer">PERFECT BALANCE <span aria-hidden="true">·</span> Design the feedback loop, not the outcome.</footer>
+  </div>
 </body>
 </html>
