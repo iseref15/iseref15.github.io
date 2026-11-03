@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="Perfect Balance: an interactive experiment about feedback and hidden momentum.">
+  <title>Perfect Balance — Feedback Experiment</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="page-header">
+      <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span> INTERACTIVE EXPERIMENT / FEEDBACK</p>
+      <h1>Perfect <span>Balance.</span></h1>
+      <p class="subtitle">Keep the ball on the platform. Use feedback to decide when to correct its movement.</p>
+    </header>
+
+    <main class="main-grid">
+      <section class="experiment panel" aria-labelledby="experiment-title">
+        <div class="section-header">
+          <div>
+            <p class="micro-heading">THE EXPERIMENT</p>
+            <h2 id="experiment-title">Find your balance</h2>
+          </div>
+          <span class="status-pill" id="attempt-status">In progress</span>
+        </div>
+
+        <fieldset class="mode-switch" id="mode-switch">
+          <legend>Feedback mode</legend>
+          <div class="mode-options">
+            <label class="mode-option">
+              <input type="radio" name="feedback-mode" value="full" checked>
+              <span class="mode-option-content">
+                <strong>Full feedback</strong>
+                <small>Position + momentum</small>
+              </span>
+            </label>
+            <label class="mode-option">
+              <input type="radio" name="feedback-mode" value="limited">
+              <span class="mode-option-content">
+                <strong>Limited feedback</strong>
+                <small>Position, no momentum display</small>
+              </span>
+            </label>
+          </div>
+          <p class="field-note">Changing modes resets the attempt. The rules stay the same.</p>
+        </fieldset>
+
+        <div class="stage" id="stage" aria-hidden="true">
+          <div class="stage-grid"></div>
+          <div class="center-line"></div>
+          <span class="stage-label left-label">LEFT EDGE</span>
+          <span class="stage-label right-label">RIGHT EDGE</span>
+          <div class="fulcrum"></div>
+          <div class="platform" id="platform"></div>
+          <div class="ball" id="ball"><span class="ball-shine"></span></div>
+        </div>
+
+        <div class="readouts" aria-label="Current information">
+          <div class="readout">
+            <span class="readout-label">BALL POSITION</span>
+            <strong id="position-text">Near center</strong>
+          </div>
+          <div class="readout">
+            <span class="readout-label">PLATFORM TILT</span>
+            <strong id="tilt-text">Level · 0°</strong>
+          </div>
+          <div class="readout momentum-readout" id="momentum-readout">
+            <span class="readout-label">MOMENTUM <span class="full-tag">FULL ONLY</span></span>
+            <div class="momentum-value">
+              <span class="momentum-arrow" id="momentum-arrow" aria-hidden="true">→</span>
+              <strong id="momentum-text">Right · 35 units/s</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="control-section">
+          <p class="micro-heading">CONTROLS</p>
+          <div class="control-buttons" role="group" aria-label="Platform controls">
+            <button type="button" id="tilt-left" class="action-button"><span class="button-symbol" aria-hidden="true">←</span> Tilt Left</button>
+            <button type="button" id="level" class="action-button"><span class="button-symbol" aria-hidden="true">−</span> Level</button>
+            <button type="button" id="tilt-right" class="action-button"><span class="button-symbol" aria-hidden="true">→</span> Tilt Right</button>
+          </div>
+          <div class="controls-footer">
+            <p id="acknowledgement" class="acknowledgement">Ready for input.</p>
+            <button type="button" id="reset" class="reset-button"><span aria-hidden="true">↻</span> Reset attempt</button>
+          </div>
+        </div>
+
+        <div class="outcome" id="outcome" hidden role="alert">
+          <strong id="outcome-title">The ball fell off the platform.</strong>
+          <p>That attempt has ended. Press Reset attempt to try again.</p>
+        </div>
+
+        <p class="live-message" id="live-message" role="status" aria-live="polite" aria-atomic="true">Attempt started. The ball is near center.</p>
+      </section>
+
+      <aside class="sidebar" aria-label="Experiment guide">
+        <section class="panel guide-panel">
+          <p class="micro-heading">YOUR TASK</p>
+          <h2>Observe. Act. Correct.</h2>
+          <p>Try to prevent the ball from reaching either edge. Each button press changes the platform tilt by <strong>4°</strong>. The ball keeps moving even after the platform returns to level.</p>
+          <ol class="guide-steps">
+            <li>Watch the ball and the available feedback.</li>
+            <li>Press <strong>Tilt Left</strong> or <strong>Tilt Right</strong> to change the slope.</li>
+            <li>Use <strong>Level</strong> to make the platform flat.</li>
+            <li>If the ball falls, select <strong>Reset attempt</strong>.</li>
+          </ol>
+          <div class="tip"><span class="tip-symbol" aria-hidden="true">i</span><p>The ball starts with the same small rightward motion on every attempt. Tilt does not instantly cancel existing momentum.</p></div>
+        </section>
+        <section class="panel compare-panel">
+          <p class="micro-heading">TRY A COMPARISON</p>
+          <h2>What changes with feedback?</h2>
+          <p>Ask a willing classmate to try both modes. Each attempt starts from the same position and speed.</p>
+          <p class="compare-question">What helped you decide when to act?</p>
+          <p class="compare-question">Did you hesitate or repeat a button press?</p>
+          <p class="compare-question">Could you tell which way the ball was moving?</p>
+          <p class="privacy-note">No scores or observations are recorded by this page.</p>
+        </section>
+        <p class="access-note">All buttons work with a keyboard, pointer or touch. The same position and tilt descriptions are available in both feedback modes; the extra momentum readout is present only in Full feedback.</p>
+      </aside>
+    </main>
+    <footer class="page-footer">PERFECT BALANCE <span aria-hidden="true">·</span> Design the feedback loop, not the outcome.</footer>
+  </div>
+</body>
+</html>
