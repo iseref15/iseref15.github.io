@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101a20">
+  <meta name="description" content="Box Bot’la Ferah Koy’u keşfet. Bir rota kur, gelgiti bekle ve kayıp sinyali fenere ulaştır.">
+  <title>Kıyı Frekansı</title>
+  <link rel="icon" href="assets/radio.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="coast.css">
+  <script src="assets/three.min.js" defer></script>
+  <script src="assets/world.js" defer></script>
+  <script src="island.js" defer></script>
+  <script src="walk.js" defer></script>
+  <script src="mission.js" defer></script>
+</head>
+<body>
+  <header class="mast">
+    <a class="brand" href="./"><img width="33" height="33" src="assets/radio.svg" alt=""> Kıyı Frekansı</a>
+    <span class="mast-region">FERAH KOY <i></i> C2</span>
+    <nav aria-label="Oyun ayarları">
+      <button id="sound" type="button" aria-label="Ses efektleri" aria-pressed="false"><span id="sound-icon"></span><span class="utility-label" id="sound-label">Ses kapalı</span></button>
+      <button id="help" type="button"><span data-icon="help"></span><span>Kontroller</span></button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="stage" aria-label="Ferah Koy 3D oyun alanı">
+      <canvas id="world" tabindex="0" aria-label="Ferah Koy 3D sahnesi. Yürümek için WASD veya ok tuşlarını kullan. Kamerayı çevirmek için sürükle."></canvas>
+      <div class="vignette" aria-hidden="true"></div>
+      <div class="world-labels" id="world-labels" aria-label="Adadaki etkileşim noktaları"></div>
+      <div class="left-hud">
+        <div class="cover" id="cover">
+          <p class="eyebrow"><span></span> FERAH KOY / GECE VARDİYASI</p>
+          <h1>Kıyı<br><em>Frekansı</em></h1>
+          <p>Ferah Koy’un telsizi sustu. Box Bot’la adayı keşfet, bir rota kur ve sinyali fenere ulaştır.</p>
+        </div>
+        <section class="objective" aria-label="Şu anki görev">
+          <div class="objective-meta"><span data-icon="signal"></span><span id="objective-meta">MEYDAN</span></div>
+          <strong id="objective-title">Box Bot’la konuş</strong>
+          <p id="objective-detail">Telsizin başında seni bekliyor.</p>
+          <button id="walk-target" class="go" type="button">Box Bot’a yürü <span data-icon="arrow"></span></button>
+        </section>
+      </div>
+      <div class="top-right-hud">
+        <div class="time-readout"><span data-icon="clock"></span><time id="clock">18:40</time><span id="water-level">SU ÇEKİLİYOR</span></div>
+        <button type="button" id="overview" class="view-switch" aria-pressed="true"><span data-icon="eye"></span><span> Ada görünümü</span></button>
+      </div>
+
+      <div class="action-hud">
+        <div class="toast" id="notice" role="status" aria-live="polite"></div>
+        <button type="button" id="interact" class="interact" hidden><kbd>E</kbd><span id="interact-label">İncele</span></button>
+      </div>
+
+      <div class="dpad" id="dpad" aria-label="Dokunmatik hareket">
+        <button data-move="up" type="button" aria-label="İleri">↑</button>
+        <button data-move="left" type="button" aria-label="Sola">←</button>
+        <button data-move="down" type="button" aria-label="Geri">↓</button>
+        <button data-move="right" type="button" aria-label="Sağa">→</button>
+      </div>
+
+      <div class="controls" aria-label="Hareket ve kamera">
+        <span><kbd>W A S D</kbd> Yürü</span>
+        <span><span data-icon="drag"></span> Sürükle ve bak</span>
+        <span><kbd>E</kbd> Etkileşime geç</span>
+      </div>
+
+      <div class="error" id="webgl-error" role="alert" hidden>3D sahne başlatılamadı. Donanım hızlandırması açık bir tarayıcıda tekrar aç.</div>
+    </section>
+
+    <section class="tide-bar" aria-label="Gelgit saati">
+      <div class="tide-title"><span data-icon="waves"></span><div><strong>Gelgit saati</strong><small>Saati seç, koy değişsin.</small></div></div>
+      <div id="phases" role="group" aria-label="Gelgit evresini seç"></div>
+    </section>
+  </main>
+
+  <footer>
+    <button type="button" id="premises">İki tasarım premisi <span data-icon="arrow"></span></button>
+    <a href="https://mertseven.com/ima/lab/index.html#home" target="_blank" rel="noopener noreferrer">Interactive Media Applications lab., Mert Seven, PhD ↗</a>
+  </footer>
+
+  <dialog id="panel" aria-labelledby="panel-title">
+    <header><span class="eyebrow"><span></span><span id="panel-place">FERAH KOY</span></span><button id="close-panel" type="button" aria-label="Kapat" autofocus><span data-icon="close"></span></button></header>
+    <h2 id="panel-title"></h2>
+    <div id="panel-body"></div>
+    <div id="panel-feedback" role="status"></div>
+    <div id="panel-actions"></div>
+  </dialog>
+  <noscript>Ferah Koy’u keşfetmek için tarayıcında JavaScript’i etkinleştir.</noscript>
+</body>
+</html>
